@@ -1,0 +1,174 @@
+---- config
+title: Transparent Sharing of Complex Data with YAML
+indent: 5
+height: 21
+width: 70
+
+---- center
+Transparent Sharing of Complex Data with YAML
+
+by Ingy döt Net
+
+OSCON - 22 July 2009 - San Jose, CA
+
+2:35-3:20pm - Meeting Room B2
+
+----
+
+== Any Questions?
+
++(seriously)
+
++* Who here has used YAML?
++* In what languages?
++* How have you used YAML?
+
+---- yaml
+
+== # Ingy döt Net #
+
+---
+- My name is Ingy döt Net
+- One of the three YAML inventors
+- A progammer: [ Perl, JavaScript, Python ]
+- Writing an O'Reilly book about YAML
+- Acmeist
+
+----
+
+== Acmeism
+
+* The O'Reilly Programming Languages
+* All languages do the same thing
+* Languages divide people
+* Acmeism brings them back together
+* YAML is Acmeist
+* XML is Acmeist
+* TestML is Acmeist
+* C'Dent is Acmeist
+
+----
+
+== A Brief History of YAML
+
+Discuss YAML timeline and various language implementations
+
+----
+
+== The YAML Data Model
+
+----
+
+== YAML Language Design
+
+Support a simple data model
+Be complex enough to handle any data
+Human readability
+Use cases
+  - Computers producing YAML
+    - Serializing objects
+  - Humans producing YAML
+    - configs
+    - programming with data
+
+----
+
+== YAML and XML
+
+----
+
+== YAML and JSON
+
+----
+
+== YAML in the Wild
+
+----
+
+== The YAML Stack
+
+----
+
+== Modern YAML Implementations
+
+----
+
+== libsyck
+
+----
+
+== PyYaml
+
+----
+
+== libyaml
+
+----
+
+== Dump/Load API
+
+----
+
+== Using YAML in Perl
+
+Mention TPF grant
+
+----
+
+== Using YAML in Python
+
+----
+
+== Using YAML in Ruby
+
+----
+
+== Using YAML in PHP
+
+----
+
+== Using YAML in JavaScript
+
+----
+
+== Intro to TestML
+
+----
+
+== YAML Tags and Types
+
+----
+
+== Implicit Typing
+
+----
+
+== YAML Schema
+
+There is no official schema, or schema tools.
+Rx.
+YOK.
+Transmitters and Receivers need to agree on meaning.
+Default schema.
+
+----
+
+== Stream Processing
+
+Parser
+Emitter
+
+----
+
+== 
+
+----
+
+== 
+
+----
+== The End
+
+
+
++http://ingydotnet.github.com/yaml-pgh2009-talk/

@@ -1,0 +1,596 @@
+---- center
+Any Questions?
+
++(seriously)
+
+---- i4
+== YAML - YAML Ain't Markup Language
+
+Q: What is YAML? (According to the Internet)
+A: YAML is a Serialization Language
+
+From Wikipedia:
+
+    * XML  is a ... MARKUP LANGUAGE...
+    * JSON is a ... DATA INTERCHANGE FORMAT
+    * YAML is a ... DATA SERIALIZATION FORMAT
+
++   YAML is THE ONLY interlingual *Data Serialization* Language.
+
+    [ Ruby, Perl, Python, PHP, Java, Haskell, JavaScript ]
+
+---- i4
+== YAML - YAML Ain't Markup Language
+
+XML - JSON - YAML
+
+All of these technologies are "interlingual data languages".
+
+
+
+
+
+.
+---- i4
+== YAML - YAML Ain't Markup Language
+
+XML - JSON - YAML
+
+All of these technologies are >>>>>>> "Acmeist"!
+
++   Acmeism - Technologies that are programming language agnostic.
+
+* TestML - is my latest Acmeist project
+  * More about it later
+* C'Dent - is my next Acmeist project
+---- i4
+== YAML - YAML Ain't Markup Language
+
+Q: What is YAML? (According to the Ingy.net)
+A: YAML is a Language for Data
+
+* Programs have lots of languages
+* Data has only a few. XML, JSON, ASN.1
+* YAML is Human Friendly
+* When Data is well organized, Programming is easier
+
+---- yaml,i4
+# Outline for YAML Talk
+
+--- !Outline
+- Intro to YAML by Examples
+- The Bad, The Good and the Ingy
+- YAML Vocabulary
+- TPF YAML Project
+- YAML Theory: [Model, Stack, Events, Schema]
+- Real World YAML
+- The History of YAML and Implementations
+- YAML::Perl
+- YAML2
+- YAML News
+- Ingy and the Hackathon
+
+----
+== Introduction to YAML by Examples
+
+---- yaml,i4
+# Example 1
+--- !
+  ? ~: #
+  : &_ '''
+{@#$%}'#: *++
+  [_: ^^]: ...
+
+---- perl,i4
+# Obfuscated YAML, FTW!
+$VAR1 = bless( {
+                 'ARRAY(0x80f640)' => '...',
+                 'HASH(0x80f5b0)' => '\' {@#$%}'
+               }, 'main' );
+
+---- yaml,i4
+# Five style of scalars
+
+plain: this is subject to implicit typing
+single: 'won''t be subject to implicit typing'
+double: "can contain \"Any Value\" \n\x7c\u206e"
+literal: |
+    \  /   /\    |\    /| |
+     \/   /  \   | \  / | |
+     |   /----\  |  \/  | |
+     |  /      \ |      | |____
+folded: >
+  Kinda like html where newlines
+  become spaces.
+
+---- yaml,i4
+# Multiple documents
+---
+A: Hashy
+B: Flashy
+---
+- An
+- Array
+- Today
+...
+--- |
+ A Scalar
+ Can't fail her
+
+---- yaml,i4
+# Flow Collections
+
+mapping: { ingy: YAML,
+  nothingmuch: Moose, jrockway: Catalyst }
+sequence: [
+  YAML,
+  Moose,
+  Catalyst
+]
+indent: [doesn't, matter]
+really: [
+doesn't
+,
+matter
+]
+
+----
+== Flow Collections
+
+* YAML has Block and Flow Collections
+* Flow can occur inside Top, Block or Flow
+* Block can occur only in Top or Block
+* Flow supports all same model as Block
+* JSON is a pure subset of YAML
+
+---- yaml,i4
+# JSON is YAML
+
+{"ingy":"yaml"}
+
++---
+# Error!!
+{http://google.com}
+
+---- yaml,i4
+# Collections as Mapping Keys
+---
+{John: Rockway}: Catalyst
+[Yuval, Kogman]: Moose
++---
+? John: Rockway
+: Catalyst
+? - Yuval
+  - Kogman
+: Moose
+
+---- yaml,i4
+# Sets
+---
+{foo, bar, baz}
+---
+{foo: ~, bar: ~, baz: ~}
+---
+? foo
+? bar
+? baz
+
+---- yaml,i4
+# Ordered Maps (omap)
+---
+[foo: 1, bar: 2, baz: 3]
+---
+[{foo: 1}, {bar: 2}, {baz: 3}]
+---
+- foo: 1
+- bar: 2
+- baz: 3
+
+---- yaml,i4
+# Tags and Types
+- 42
+- ! '42'
+- !!int '42'
+- !<tag:yaml.org,2002:int> '42'
+- [!!null '', !!bool 1, !!str '42', !!float '42']
+- !<tag:ingy.net,2003:Foo/Bar> {}
+
+---- yaml,i4
+# Perl Tags and Types
+---
+- !Foo {private: tag}
+- !!perl/hash:Foo {}
+- !<tag:yaml.org,2002:perl/hash:Foo> {}
+...
+%TAG ! !tag:ingy.net,2003:
+---
+- !Foo {}  
+- !tag:ingy.net,2003:Foo {}
+
+---- yaml,i4
+# Implicit types
+---
+- string    # !!str
+- ~         # !!null
+- null      # !!null
+- true      # !!bool
+- false     # !!bool
+- 42        # !!int
+- 3.14      # !!float
+
+---- yaml,i4
+# Sequence in Sequence
+---
+- 
+  -
+    - 1
+    - 2
+- 3
+---
+- - - 1
+    - 2
+- 3
+
+---- yaml,i4
+# Sequence in Mapping
+---
+things:
+  - foo
+  - bar
+---
+things:
+- foo
+- bar
+
+---- yaml,i4
+# Anchors and Aliases
+left hand: &veryHeavySword
+  name: The Bastard Sword of Eowyn
+  weight: 30
+right hand: *veryHeavySword
+
+---- yaml,i4
+# Roll Your Own Implicits
+--- !diceRolls
+- 3d4
+- 1d1
+- !roll '6d5'
+- !roll
+  one: 2
+  two: 5
+
+---- center
+The State of the YAML
+
+The Bad, the Good and the Ingy
+
+----
+== YAML - The Bad
+
+* Started in April 2001 (over 8 years ago)
+  * Still not rock solid
+  * JSON was 2005 and quickly solid
+* Many Incompatible Implementations
+  * YAML.pm, Syck, XS, Perl, Tiny
+* Very complex specification
+  * 1.2 specification is not released yet
+  * No implementation (not even libyaml) fully matches the 1.2 spec
+* Terrible vim syntax highlighting
+
+----
+== YAML - The Good
+
+* Fairly Ubiquitous - Everybody's using it
+* Acmeism - Works for all modern programming languages
+* Very complete language
+  * Simple for simple stuff
+  * Deep for hard stuff
+* New O'Reilly book and OSCON talk!
+* New tools in Perl!
+
+----
+== YAML - The Ingy
+
+* Ingy is 1 of the 3 authors of YAML
+* Ingy is the only Perl person of the 3
+* Everyone *assumes* Ingy will do everything YAML related
+  * These days, even Ingy assumes this
+* Ingy is not the best Perl programmer
+* But he's getting better...
++* He's copying other people's work!
+
+---- yaml,i2
+# Quick YAML Vocabulary Lesson for Mongers
+- directive:  %YAML or %TAG line
+- stream:     A complete (to eof) YAML file
+- document:   A single top level object
+- mapping:    A hash (ref)
+- sequence:   An array (ref)
+- collection: A map or seq
+- scalar:     A scalar
+- node:       A map, seq or scalar
+- anchor:     A label of a node
+- alias:      A reference to a anchored node
+- block:      Indented scoping
+- flow:       Curly/Square scoping
+- literal:    HEREDOC
+- dump:       Perl to YAML
+- load:       YAML to PERL
+
+----
+== Introduction to Ingy döt Net
+
+* Ingy is attracted to mixing programming languages
+* See http://github.com/ingydotnet/
+* Perl, Python, Ruby, JavaScript, Perl6
+* They are all basically the same
+* Inline, YAML, TestML, CogBase,
+  Jemplate, pQuery, C'Dent, WikiText
+* Modules, People, Communities, Jobs
+
++* Ingy believes in Acmeism
+
+----
+== Ingy's TPF Grant
+
+* YAML has a Spec (1.2)
+* Anyone can implement it (not easy)
+* Everybody assumes Ingy will implement it
+* In Fall of 2006 I received a $3000 grant
+* To port PyYAML to Perl
+* I bound libyaml to Perl 6 months later
+* libyaml is a port of PyYAML
+* Two years later I am almost finished with YAML::Perl
+
+----
+== YAML Theory
+
+* Model
+* Stack
+* Events
+* Schema
+
+---- yaml,i4
+# YAML Data Model
+---
++start with:
+  hashes: collections
+  which: map
+  keys: values
++add:
+  - arrays
+  - sequences
+  - of data
++plus: scalars
++mix in: !type "of data"
++references: *to_the_past
++...
+  
+----
+== What is the difference between the YAML Model and the JSON Model?
+
+* JSON only supports arrays and string-keyed-maps
+
+* YAML adds data references/pointers
+** Allows cyclic data
+* YAML adds an extensible type system
+** All nodes are typed
+** Usually implicitly
+
+----
+        JSON Model Grammar
+
+    JSON   := (MAP | ARRAY)
+    NODE   := (MAP | ARRAY | SCALAR)
+    MAP    := (STRING, NODE)*
+    ARRAY  := NODE*
+    SCALAR := (string | number | boolean | null)
+
+        YAML Model Grammar
+
+    YAML := NODE*
+    NODE := (typed)(MAP | ARRAY | SCALAR | ALIAS)
+    MAP := (NODE, NODE)*
+    ARRAY := NODE*
+    SCALAR := typed_string
+
+----
+== The YAML Stack
+
+Loader Stack        Memory Representation         Dumper Stack
+==============================================================
+      Loader                                      Dumper
+               \                              /
+                  (Native Perl Data/Objects)
+               /                              \
+ Constructor                                      Representer
+               \                              /
+                       (YAML Node Graph)
+               /                              \
+    Composer      <-->     Resolver     <-->      Serializer
+               \                              /
+                       (YAML Event Tree)
+               /                              \
+      Parser                                      Emitter
+               \                              /
+                      (YAML Token Stream)
+               /                              /
+     Scanner
+               \                              /
+                    (YAML Character Stream)
+               /                              \
+      Reader                                      Writer
+               \                              /
+                 (YAML String or File Handle)
+
+----
+== Streaming API - YAML Events
+
+* STREAM_START
+* STREAM_END
+* DOCUMENT_START
+* DOCUMENT_END
+* MAPPING_START
+* MAPPING_END
+* SEQUENCE_START
+* SEQUENCE_END
+* SCALAR
+* ALIAS
+
+---- yaml,i4
+# Example Events
+
+---
+foo: &list
+- hello
+- world
+bar: *list
+--- Goodbye
+
+----
+* STREAM_START
+* DOCUMENT_START
+* MAPPING_START
+* SCALAR value="foo"
+* SEQUENCE_START anchor="list"
+* SCALAR value="hello"
+* SCALAR value="world"
+* SEQUENCE_END
+* SCALAR value="bar"
+* ALIAS anchor="list"
+* MAPPING_END
+* DOCUMENT_END
+* DOCUMENT_START
+* SCALAR value="Goodbye"
+* DOCUMENT_END
+* STREAM_END
+
+----
+== Schema - The Meaning of YAML - The Grey Zone
+
+Q: How do you know what a random YAML document means?
++A: You don't!
+
++* YAML meaning is context sensitive
+* It is a contract between a Loader and a Dumper
+* It is a contract between two developers
+* It is validated by a test system
+* The contract does not (yet) have a formal standard
+* YAML will someday have a formal schema language
+  * Y-OK and Rx are attempts
+* For now it is a programmer understanding
+* Backed by good tests, when needed
+
+----
+== YAML::Perl
+
+* Port of Python's PyYAML to Perl
+* Line for Line port
+* 16 Python Modules
+* 6000 lines of Python
+* libyaml is a port of PyYAML
+  * YAML::Perl should match YAML::XS
+* SnakeYAML for Java
+* PyYAML is Reference Implementation
+* Full YAML Stack Access
+* Detailed error messages
+
+---- perl
+# YAML::Perl example code.
+
+use YAML::Perl::Events;
+use YAML::Perl::Emitter;
+
+my $emitter = YAML::Perl::Emitter->new();
+$emitter->open();
+
+for (qw(
+    YAML::Perl::Event::StreamStart
+    YAML::Perl::Event::DocumentStart
+    YAML::Perl::Event::MappingStart
+    YAML::Perl::Event::Scalar,foo
+    YAML::Perl::Event::Scalar,42
+    YAML::Perl::Event::Scalar,bar
+    YAML::Perl::Event::Scalar,44
+    YAML::Perl::Event::MappingEnd
+    YAML::Perl::Event::DocumentEnd
+    YAML::Perl::Event::StreamEnd
+)) {
+    my ($class, $value) = split ',';
+    my $event = defined($value)
+        ? $class->new(value => $value)
+        : $class->new();
+    $emitter->emit($event);
+}
+
+print ${$emitter->writer->stream->buffer};
+
+----
+== YAML::Perl
+
+    - Show ported code
++    - Show ysh -MYAML::Perl
+    - Better error messages
++    - Show TestML
+
+----
+== YAML::Perl Roadmap
+
+* Port all PyYaml code to YAML::Perl - *DONE*
+* Make YAML::Perl pass all PyYaml tests
+  * TestML!
+* Provide proper Perl/YAML API
+* Write the YAML::Perl documentation
+
++* Get Paid! (by TPF)
+----
+== YAML2
+
+use YAML-XS;
+
+$clone = Load Dump $yaml;
+
+$object = yaml->load($yaml);
+
+$yaml = yaml(%options)->dump($object);
+
+----
+== No more Global UI
+
+* YAML was modeled after Data::Dumper originally.
+* Global variable configuration is a really bad idea.
+* Moreso for YAML.
+
+    use YAML;
+    $YAML::Indent = 4;
+    Dump($object);
+
+    yaml(indent => 4)->dump($object);
+
+    # Streaming API
+    yaml->emit(yaml->parse($yaml));
+----
+== YAML2 Transition
+
+* YAML.pm moved to YAML::Old
+* YAML2 *dist* installs YAML *module*
+* With lots of warnings
+  * VERY EXPERIMENTAL
+  * WARNING- ***INGY CODE!!!***
+* YAML2 proxies to the appropriate
+  YAML implementation module.
+* When stable, make YAML2 into real YAML.pm.
+
+  use YAML;
+  use YAML-Old;
+  use YAML '-Old';
+  use YAML-XS,-Perl;
+----
+== YAML News
+
+* YAML 1.2 Spec to be finalized very soon now.
+* Ingy Presents YAML @ OSCON
+  * YAML serves "The O'Reilly Languages"
+* Ingy working on a YAML Book
+
+

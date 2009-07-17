@@ -1,0 +1,33 @@
+2:35pm   Transparent Sharing of Complex Data with YAML   Ingy döt Net
+(Hackers, Inc) 
+
+
+
+YAML is the only complete data serialization language that works across Perl,
+Python, Ruby, PHP, JavaScript and Python. It does so in a way that is truly a
+pleasure for people to read.
+
+JSON is adequate for simple objects and arrays, but is not suited for typed
+data and recursive references among other things. XML doesn’t have an
+information model compatible with the data structures of these languages. For
+many applications, using YAML is the clear choice.
+
+Many people use YAML for simple day to day tasks in frameworks like Ruby on
+Rails, but YAML was designed from the ground up to deal with deeply complex
+data issues. YAML frameworks have matured in the last couple years to be able
+to deliver robust data sharing.
+
+In this talk, Ingy döt Net, one of the three inventors of YAML, will show you
+in several programming languages:
+
+    * The ins, outs and special secrets of the YAML language
+    * Dumping complex data objects and loading them back into memory
+    * Parsing and emitting YAML using streaming, event driven APIs
+    * Issues in sharing data between programming languages
+
+Hackers, Inc
+
+Ingy döt Net is just another Perl hacker and one of the 3 inventors of the
+YAML serialization language. He has over 100 Perl modules on CPAN including a
+recent port of Python’s peerless PyYaml framework; an effort supported by The
+Perl Foundation.
