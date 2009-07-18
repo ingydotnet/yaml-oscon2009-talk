@@ -73,11 +73,29 @@ Use cases
 
 ----
 
+== The YAML Specification
+
+- 1.2 finalized
+
+----
+
 == YAML and XML
 
 ----
 
 == YAML and JSON
+
+----
+
+== YAML Syntax Overview
+
+obfuscated YAML
+
+----
+
+== Advanced YAML Syntax
+
+Collection Keys
 
 ----
 
