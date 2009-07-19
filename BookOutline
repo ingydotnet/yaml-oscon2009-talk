@@ -1,0 +1,91 @@
+1) Modern Data and Computer Languages – This chapter talks about
+   the common data structures that modern, object oriented
+   programming languages like Perl all are centered around. Namely
+   hashes, arrays and scalars. This is important groundwork, because
+   YAML is also centered around these structures. The also covers
+   types and references which are essential in explaining YAML. The
+   chapter talks about YAML’s design goals, like Human Readability.
+   Finally the chapter explains the complimentary relationship of
+   YAML to XML and JSON.
+
+  A) YAML – A Language for Data 
+  B) Data, Data Structures and Databases 
+  C) Hashes, Arrays and Scalars 
+  D) Modern Programming Languages 
+  E) Types and Objects 
+  F) Data References 
+  G) Human Readability 
+  H) YAML, XML and JSON 
+
+2) The YAML Data Format – Like the Camel book for Perl, this chapter
+   has the “Gory Details” and is definitely the primary reference
+   part of the book. The chapter starts with the basics, but then
+   systematically covers all the YAML syntax and semantics in depth.
+
+  A) Simple Collections 
+  B) Comments 
+  C) Block vs Flow 
+  D) Streams and Documents 
+  E) Scalars - TMTOWTDI 
+  F) Data Types 
+  G) YAML Tags and Explicit Typing 
+  H) Implicit Typing 
+  I) Aliases and Anchors - (References and Recursion) 
+  J) Complex Keys 
+  K) Sets and Ordered Mappings 
+  L) YAML Specification Numbering 
+
+3) Processing YAML - This chapter explains the common ways that computer
+   programs consume and produce YAML. Copyright © 2004, O’Reilly
+   Media. All rights reserved.
+
+  A) Dump / Load API 
+  B) Streaming API 
+  C) Data Shadowing 
+
+4) The Full YAML Stack - When transferring data between a YAML
+   document and an internal data structure, there is a multilayered
+   “stack” of steps that happened in each direction. This chapter
+   goes into detail and examination of exactly what happens at each of
+   these steps.
+
+  A) Dump Stack 
+    A) Dump 
+    B) Represent 
+    C) Serialize 
+    D) Present 
+  B) Load Stack 
+    A) Parse 
+    B) Compose 
+    C) Construct 
+    D) Load 
+  C) Round Tripping 
+  D) Type Resolution 
+
+5) YAML Programming Reference - This chapter explains the common tools
+   and APIs currently available in 6 different programming languages.
+
+  A) Ruby 
+  B) Python 
+  C) Perl 
+  D) PHP 
+  E) Java 
+  F) JavaScript 
+
+6) Appendix I - YAML Projects Overview - This appendix discusses the
+   major relevant projects driving YAML its community.
+
+  A) Specification - The YAML 1.2 Specification 
+  B) libyaml - The definitive C library for processing YAML 
+  C) Syck - The original C library 
+  D) Ypaste - The YAML Validator 
+  E) Rx - Schema Language 
+
+7) Appendix II - YAML in the Wild - This appendix shows the major uses
+   of YAML in various high profile projects.
+
+  A) Ruby on Rails - YAML is the configuration language of choice. 
+  B) CPAN - Perl module metadata is stored in YAML. 
+  C) Catalyst - Uses YAML for configuration. 
+
+8) Index - Standard Index of Terms 
