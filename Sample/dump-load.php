@@ -22,3 +22,5 @@ if ($yaml1 == $yaml2) {
 else {
     throw new Exception($yaml1 . "!=\n" . $yaml2);
 }
+
+?>
