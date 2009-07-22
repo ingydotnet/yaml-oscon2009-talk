@@ -79,8 +79,8 @@ OSCON - 22 July 2009 - San Jose, CA
 
 == YAML Ain't Markup Language
 
-Q: What is YAML? (According to the Internet)
-A: YAML is a Serialization Language
+Q: What is YAML?
++A: YAML is a Serialization Language
 
 From Wikipedia:
 
@@ -94,60 +94,49 @@ From Wikipedia:
 
 ----
 
+== YAML - YAML Ain't Markup Language
+
+* Programs have lots of languages
+* Data has only a few. XML, JSON, ASN.1
+* YAML is Human Friendly
+* When Data is well organized, Programming is easier
+
+----
+
 == What is YAML Used For?
 
-* Storing Objects
-* Scripting Your Brain
-* Viewing Objects
+* Config File Format
+* Viewing Complex Objects
+* Making your Thoughts into Objects
+* Storing and Retrieving Objects
 * Interprocess Messaging
 
 ----
 
-== Implementations
+== Many Implementations in Many Languages
 
-  C/C++ Libraries:
-  - libyaml       # "C" Fast YAML 1.1
-  - Syck          # (dated) "C" YAML 1.0
-  - yaml-cpp      # C++ YAML 1.1 implementation
-  Java:
-  - JvYaml        # Java port of RbYaml
-  - SnakeYAML     # Java 5 / YAML 1.1
-  - YamlBeans     # To/from JavaBeans
-  - JYaml         # Original Java Implementation
-  Python:
-  - PyYaml        # YAML 1.1, pure python and libyaml binding
-  - PySyck        # YAML 1.0, syck binding
-  Ruby:
-  - RbYaml        # YAML 1.1 (PyYaml Port)
-  - yaml4r        # YAML 1.0, standard library syck binding
-  Perl Modules:
-  - YAML          # Pure Perl YAML Module
-  - YAML::XS      # Binding to libyaml
-  - YAML::Syck    # Binding to libsyck
-  - YAML::Tiny    # A small YAML subset module
-  - YAML::Perl    # Perl port of PyYaml
-  C#/.NET:
-  - yaml-net      # YAML 1.1 library
-  - yatools.net   # (in-progress) YAML 1.1 implementation
-  PHP:
-  - syck          # syck bindings (YAML 1.0)
-  - spyc          # yaml loader/dumper (YAML 1.?)
-  OCaml:
-  - ocaml-syck    # YAML 1.0 via syck bindings
-  Javascript:
-  - JsYaml        # port of PyYaml
-  Actionscript:
-  - as3yaml       # port of JvYAML (1.1)
-  Haskell:
-  - YamlReference # Haskell 1.2 reference parser
-  - HsYAML        # Audrey Tang's Loader/Dumper Library for Haskell
+* C/C++ Libraries
+* Java
+* Python
+* Ruby
+* Perl
+* C#/.NET
+* PHP
+* OCaml
+* Javascript
+* Actionscript
+* Haskell
 
 ----
 
 == A Brief History of YAML
 
 +* April 2001 - Clark called Ingy
-+* 2002 - Ingy wrote YAML.pm
++* 2002-2004 - The YAML Wars
++* 2005 - JSON was Invented
++* 2006 - PyYaml
++* 2007-2009 - PyYaml ported to *
++* Last Night - YAML Spec Finally Completed
 
 ----
 
@@ -167,79 +156,274 @@ From Wikipedia:
 
 ----
 
-== The YAML Data Model
-
-----
-
-== The YAML Specification
-
-- 1.2 finalized
-
-----
-
 == YAML and XML
+
+* YAML and XML have completely different Data Models
+
+* YAML's Model matches the O'Reilly Languages
+
+* XML's Model matched XML's Model
 
 ----
 
 == YAML and JSON
 
-----
+* JSON has a simple data Model
 
-== YAML Syntax Overview
-
-* 5 Scalar Styles
-  * Quoting Rarely Needed
-  * Implicit Typing
-* Block vs Flow
-  * JSON is Flow YAML
-
-
+* Mappings/Hashes/Dictionaries (w/ string keys)
+* Sequences/Arrays/Lists
+* Scalars (Strings, Numbers, Boolean, Null)
 
 ----
 
-== Advanced YAML Syntax
+== The YAML Data Model
 
-* Collection Keys
-* Flow Sets
-* Flow Omaps
+* The main strength of YAML is its Data Model
 
-----
+* Start with the JSON model.
+  * (All valid JSON is also valid YAML)
 
-== YAML in the Wild
-
-* Many Formats are almost YAML
-  * Debian
-  * Cabal
-* CPAN - META.yml
-* RoR
+* Add types
+* Add references
+* Add complex keys
 
 ----
+        JSON Model Grammar
 
+    JSON   := (MAP | ARRAY)
+    NODE   := (MAP | ARRAY | SCALAR)
+    MAP    := (STRING, NODE)*
+    ARRAY  := NODE*
+    SCALAR := (string | number | boolean | null)
+
+        YAML Model Grammar
+
+    YAML := NODE*
+    NODE := (typed)(MAP | ARRAY | SCALAR | ALIAS)
+    MAP := (NODE, NODE)*
+    ARRAY := NODE*
+    SCALAR := typed_string
+
+----
+== Introduction to YAML by Examples
+
+---- yaml,i4
+# Example 1
+--- !
+  ? ~: #
+  : &_ '''
+{@#$%}'#: *++
+  [_: ^^]: ...
+
+---- perl,i4
+# Obfuscated YAML, FTW!
+$VAR1 = bless( {
+                 'ARRAY(0x80f640)' => '...',
+                 'HASH(0x80f5b0)' => '\' {@#$%}'
+               }, 'main' );
+
+---- yaml,i4
+# Five style of scalars
+
+plain: this is subject to implicit typing
+single: 'won''t be subject to implicit typing'
+double: "can contain \"Any Value\" \n\x7c\u206e"
+literal: |
+    \  /   /\    |\    /| |
+     \/   /  \   | \  / | |
+     |   /----\  |  \/  | |
+     |  /      \ |      | |____
+folded: >
+  Kinda like html where newlines
+  become spaces.
+
+---- yaml,i4
+# Multiple documents
+---
+A: Hashy
+B: Flashy
+---
+- An
+- Array
+- Today
+...
+--- |
+ A Scalar
+ Can't fail her
+
+---- yaml,i4
+# Flow Collections
+
+mapping: { Larry: Perl,
+  Guido: Python, Matz: Ruby }
+sequence: [
+  Perl,
+  Python,
+  Ruby
+]
+indent: [doesn't, matter]
+really: [
+doesn't
+,
+matter
+]
+
+----
+== Flow Collections
+
+* YAML has Block and Flow Collections
+* Flow can occur inside Top, Block or Flow
+* Block can occur only in Top or Block
+* Flow supports all same model as Block
+* JSON is a pure subset of YAML
+
+---- yaml,i4
+# JSON is YAML
+
+{"ingy":"yaml"}
+
++---
+# Error!!
+{http://google.com}
+
+---- yaml,i4
+# Collections as Mapping Keys
+---
+{Larry: Wall}: Perl
+[Guido, Van Rossum]: Python
++---
+? Larry: Wall
+: Perl
+? - Guido
+  - Van Rossum
+: Python
+
+---- yaml,i4
+# Sets
+---
+{foo, bar, baz}
+---
+{foo: ~, bar: ~, baz: ~}
+---
+? foo
+? bar
+? baz
+
+---- yaml,i4
+# Ordered Maps (omap)
+---
+[foo: 1, bar: 2, baz: 3]
+---
+[{foo: 1}, {bar: 2}, {baz: 3}]
+---
+- foo: 1
+- bar: 2
+- baz: 3
+
+---- yaml,i4
+# Tags and Types
+- 42
+- ! '42'
+- !!int '42'
+
+---- yaml,i4
+# Perl Tags and Types
+---
+- !Foo {private: tag}
+- !!perl/hash:Foo {}
+- !<tag:yaml.org,2002:perl/hash:Foo> {}
+...
+
+%TAG ! !tag:ingy.net,2003:
+---
+- !Foo {}  
+- !tag:ingy.net,2003:Foo {}
+
+---- yaml,i4
+# Implicit types
+---
+- string    # !!str
+- ~         # !!null
+- null      # !!null
+- true      # !!bool
+- false     # !!bool
+- 42        # !!int
+- 3.14      # !!float
+
+---- yaml,i4
+# Sequence in Sequence
+---
+- 
+  -
+    - 1
+    - 2
+- 3
+---
+- - - 1
+    - 2
+- 3
+
+---- yaml,i4
+# Sequence in Mapping
+---
+things:
+  - foo
+  - bar
+---
+things:
+- foo
+- bar
+
+---- yaml,i4
+# Anchors and Aliases
+left hand: &veryHeavySword
+  name: The Bastard Sword of Eowyn
+  weight: 30
+right hand: *veryHeavySword
+
+----
 == The YAML Stack
 
+Loader Stack        Memory Representation         Dumper Stack
+==============================================================
+      Loader                                      Dumper
+               \                              /
+                  (Native Perl Data/Objects)
+               /                              \
+ Constructor                                      Representer
+               \                              /
+                       (YAML Node Graph)
+               /                              \
+    Composer      <-->     Resolver     <-->      Serializer
+               \                              /
+                       (YAML Event Tree)
+               /                              \
+      Parser                                      Emitter
+               \                              /
+                      (YAML Token Stream)
+               /                              /
+     Scanner
+               \                              /
+                    (YAML Character Stream)
+               /                              \
+      Reader                                      Writer
+               \                              /
+                 (YAML String or File Handle)
+
 ----
 
-== Modern YAML Implementations
+== Using YAML in 8 Different Languages
 
-----
+* A Simple Dump Load Program in:
 
-== libsyck
-
-----
-
-== PyYaml
-
-----
-
-== libyaml
-
-----
-
-== Dump/Load API
-
-----
-
-== Using YAML in Python
+  * Python
+  * Perl
+  * Ruby
+  * PHP
+  * JavaScript
+  * Java
+  * Haskell
+  * Flash/ActionScript
 
 ---- python
 
@@ -264,75 +448,259 @@ if yaml1 == yaml2:
 else:
     raise Exception(yaml1 + "!=\n" + yaml2)
 
+---- perl
+
+use YAML;
+
+$object1 = {
+    'name' => 'Ingy dot Net',
+    'number' => 42,
+    'needs' => [
+        'sex',
+        'drugs',
+        'rock and roll'
+    ]
+};
+
+$yaml1 = Dump($object1);
+$object2 = Load($yaml1);
+$yaml2 = Dump($object2);
+
+if ($yaml1 eq $yaml2) {
+    print $yaml1;
+}
+else {
+    die $yaml1 . "!=\n" . $yaml2
+}
+
+---- ruby
+
+require 'yaml'
+
+object1 = {
+    'name' => 'Ingy dot Net',
+    'number' => 42,
+    'needs' => [
+        'sex',
+        'drugs',
+        'rock and roll'
+    ]
+}
+
+yaml1 = YAML::dump(object1)
+object2 = YAML::load(yaml1)
+yaml2 = YAML::dump(object2)
+
+if yaml1 == yaml2
+    print YAML.dump(object1)
+else
+    raise yaml1 + "!=\n" + yaml2
+end
+
+---- php
+
+<?php
+
+include("spyc.php");
+
+$object1 = array(
+    'name' => 'Ingy dot Net',
+    'number' => 42,
+    'needs' => array(
+        'sex',
+        'drugs',
+        'rock and roll'
+    )
+);
+
+$yaml1 = Spyc::YAMLDump($object1);
+$object2 = Spyc::YAMLLoad($yaml1);
+$yaml2 = Spyc::YAMLDump($object2);
+
+if ($yaml1 == $yaml2) {
+    echo $yaml1;
+}
+else {
+    throw new Exception($yaml1 . "!=\n" . $yaml2);
+}
+
+?>
+
+---- js
+
+load("YAML.js");
+
+(function() {
+    var object1 = {
+        name: 'Ingy dot Net',
+        number: 42,
+        needs: [
+            'sex',
+            'drugs',
+            'rock and roll'
+        ]
+    };
+
+    var yaml1 = YAML.dump(object1);
+    // object2 = YAML.load(yaml1);
+    // yaml2 = YAML.dump(object2);
+    var yaml2 = yaml1;
+
+    if (yaml1 == yaml2)
+        print(yaml1);
+    else
+        throw yaml1 + "!=\n" + yaml2;
+})();
+
+---- java
+
+import java.util.HashMap;
+import java.util.Map;
+import org.yaml.snakeyaml.Yaml;
+
+class dump_load {
+    public static void main(String[] args) {
+        Map<String, Object> object1 = new HashMap<String, Object>();
+        object1.put("name", "Ingy dot Net");
+        object1.put("number", 42);
+        object1.put("needs", new String[] { "sex", "drugs", "rock and roll" });
+
+        Yaml yaml = new Yaml();
+        String yaml1 = yaml.dump(object1);
+        Object object2 = yaml.load(yaml1);
+        String yaml2 = yaml.dump(object2);
+
+        if (yaml1.equals(yaml2)) {
+            System.out.println(yaml1);
+        }
+        else {
+            System.out.println(yaml1 + "!=\n" + yaml2);
+        }
+    }
+}
+
+
+---- hs
+
+{-1};system(qq[pugs-DrIFT "$ARGV[0]" -o "$ARGV[1]"]);<<'--'
+-}{-# OPTIONS_GHC -pgmFperl -F -optFdump-load.hs #-}
+{-# LANGUAGE DeriveDataTypeable, PatternGuards #-}
+
+import Control.Monad
+import Data.Typeable
+import Data.Yaml.Syck
+import DrIFT.YAML
+
+data Person = Person
+    { name   :: String
+    , number :: Int
+    , needs  :: [String]
+    } deriving Typeable {-!derive: YAML!-}
+
+object1 = Person
+    { name   = "Ingy dot Net"
+    , number = 42
+    , needs  = [ "sex", "drugs", "rock and roll" ]
+    }
+
+main = do
+    yaml1 <- toYamlString object1
+    object2 <- fromYamlString yaml1
+    yaml2 <- toYamlString (object2 :: Person)
+    if yaml1 == yaml2
+        then putStr yaml1
+        else fail $ yaml1 ++ "!=\n" ++ yaml2
+
+--
+
+---- as
+
+package {
+    import flash.display.Sprite;
+    import flash.text.TextField;
+    import org.as3yaml.YAML;
+    
+    public class dump_load extends Sprite {
+        public function dump_load() {
+            var field:TextField = new TextField();
+            field.multiline = true;
+            addChild(field);
+
+            field.text = 'Testing ActionScript YAML';
+            
+            var object1:Object = {
+                name: 'Ingy dot Net',
+                number: 42,
+                needs: [
+                    'sex',
+                    'drugs',
+                    'rock and roll'
+                ]
+            };
+
+            var yaml1:String = YAML.encode(object1);
+            var object2:Object = YAML.decode(yaml1);
+            var yaml2:String = YAML.encode(object2);
+
+            if (yaml1 == yaml2) {
+                field.text = yaml1;
+            }
+            else {
+                field.text = yaml1 + "!=\n" + yaml2;
+            }
+        }
+    }
+}
+
 ----
 
-== Using YAML in Perl
+== Streaming API - YAML Events
 
-* YAML.pm - 2001
-* YAML::Syck - Binding to libsyck
-* YAML::XS - Binding to libyaml
-* YAML::Tiny - Not really YAML
-* YAML::Perl - Port of PyYaml
-  * Sponsored by The Perl Foundation
+* STREAM_START
+* STREAM_END
+* DOCUMENT_START
+* DOCUMENT_END
+* MAPPING_START
+* MAPPING_END
+* SEQUENCE_START
+* SEQUENCE_END
+* SCALAR
+* ALIAS
 
-----
+---- yaml,i4
+# Example Events
 
-== Using YAML in Ruby
-
-* rbyaml - Ships with Ruby since 2004
-
-----
-
-== Using YAML in PHP
-
-----
-
-== Using YAML in JavaScript
-
-----
-
-== Intro to TestML
+---
+foo: &list
+- hello
+- world
+bar: *list
+--- Goodbye
 
 ----
+* STREAM_START
+* DOCUMENT_START
+* MAPPING_START
+* SCALAR value="foo"
+* SEQUENCE_START anchor="list"
+* SCALAR value="hello"
+* SCALAR value="world"
+* SEQUENCE_END
+* SCALAR value="bar"
+* ALIAS anchor="list"
+* MAPPING_END
+* DOCUMENT_END
+* DOCUMENT_START
+* SCALAR value="Goodbye"
+* DOCUMENT_END
+* STREAM_END
 
-== YAML Tags and Types
+---- python
 
-----
-
-== Implicit Typing
-
-----
-
-== YAML Schema
-
-There is no official schema, or schema tools.
-Rx.
-YOK.
-Transmitters and Receivers need to agree on meaning.
-Default schema.
-
-----
-
-== Stream Processing
-
-Parser
-Emitter
-
-----
-
-== Issues with YAML
-
-* Spec is Complex
-* Implementations differ somewhat
-* Version skew
-
-----
-
-== 
+# Example in Python
 
 ----
 == The End
 
++http://ingydotnet.github.com/yaml-oscon2009-talk/
 
-
-+http://ingydotnet.github.com/yaml-pgh2009-talk/

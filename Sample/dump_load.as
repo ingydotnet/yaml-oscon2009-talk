@@ -12,9 +12,9 @@
             field.text = 'Testing ActionScript YAML';
             
             var object1:Object = {
-                'name': 'Ingy dot Net',
-                'number': 42,
-                'needs': [
+                name: 'Ingy dot Net',
+                number: 42,
+                needs: [
                     'sex',
                     'drugs',
                     'rock and roll'
