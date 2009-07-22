@@ -1,0 +1,64 @@
+<html>
+<head>
+<title>044.as</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "043.hs" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "045" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>     package {
+         import flash.display.Sprite;
+         import flash.text.TextField;
+         import org.as3yaml.YAML;
+         
+         public class dump_load extends Sprite {
+             public function dump_load() {
+                 var field:TextField = new TextField();
+                 field.multiline = true;
+                 addChild(field);
+     
+                 field.text = 'Testing ActionScript YAML';
+                 
+                 var object1:Object = {
+                     name: 'Ingy dot Net',
+                     number: 42,
+                     needs: [
+                         'sex',
+                         'drugs',
+                         'rock and roll'
+                     ]
+                 };
+     
+                 var yaml1:String = YAML.encode(object1);
+                 var object2:Object = YAML.decode(yaml1);
+                 var yaml2:String = YAML.encode(object2);
+     
+                 if (yaml1 == yaml2) {
+                     field.text = yaml1;
+                 }
+                 else {
+                     field.text = yaml1 + &quot;!=\n&quot; + yaml2;
+                 }
+             }
+         }
+     }
+</pre>
+</body>

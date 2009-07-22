@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>012z</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "012f" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "013" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+
+
+
+                       A Brief History of YAML
+     
+     * April 2001 - Clark called Ingy
+     * 2002-2004 - The YAML Wars
+     * 2005 - JSON was Invented
+     * 2006 - PyYaml
+     * 2007-2009 - PyYaml ported to *
+     * Last Night - YAML Spec Finally Completed
+
+
+
+
+
+
+
+
+</pre>
+</body>

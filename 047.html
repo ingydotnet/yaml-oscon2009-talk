@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>047</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "046.yaml" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "048.py" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+     * STREAM_START
+     * DOCUMENT_START
+     * MAPPING_START
+     * SCALAR value=&quot;foo&quot;
+     * SEQUENCE_START anchor=&quot;list&quot;
+     * SCALAR value=&quot;hello&quot;
+     * SCALAR value=&quot;world&quot;
+     * SEQUENCE_END
+     * SCALAR value=&quot;bar&quot;
+     * ALIAS anchor=&quot;list&quot;
+     * MAPPING_END
+     * DOCUMENT_END
+     * DOCUMENT_START
+     * SCALAR value=&quot;Goodbye&quot;
+     * DOCUMENT_END
+     * STREAM_END
+
+
+
+
+</pre>
+</body>

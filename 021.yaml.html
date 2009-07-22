@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>021.yaml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "020.pl" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "022.yaml" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>
+
+
+    # Five style of scalars
+    
+    plain: this is subject to implicit typing
+    single: 'won''t be subject to implicit typing'
+    double: &quot;can contain \&quot;Any Value\&quot; \n\x7c\u206e&quot;
+    literal: |
+        \  /   /\    |\    /| |
+         \/   /  \   | \  / | |
+         |   /----\  |  \/  | |
+         |  /      \ |      | |____
+    folded: &gt;
+      Kinda like html where newlines
+      become spaces.
+
+
+
+
+
+</pre>
+</body>

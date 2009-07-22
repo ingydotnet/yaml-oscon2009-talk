@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>035</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+function navigate(e) {
+    var keynum = (window.event) // IE
+        ? e.keyCode
+        : e.which;
+    if (keynum == 8) {
+        window.location = "034.yaml" + ".html";
+        return false;
+    }
+    if (keynum == 13 || keynum == 32) {
+        window.location = "036" + ".html";
+        return false;
+    }
+    if (keynum == 73 || keynum == 105) {
+        window.location = "index.html";
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body onkeypress="return navigate(event)">
+<pre>                            The YAML Stack
+     
+     Loader Stack        Memory Representation         Dumper Stack
+     ==============================================================
+           Loader                                      Dumper
+                    \                              /
+                       (Native Perl Data/Objects)
+                    /                              \
+      Constructor                                      Representer
+                    \                              /
+                            (YAML Node Graph)
+                    /                              \
+         Composer      &lt;--&gt;     Resolver     &lt;--&gt;      Serializer
+                    \                              /
+                            (YAML Event Tree)
+                    /                              \
+           Parser                                      Emitter
+                    \                              /
+                           (YAML Token Stream)
+                    /                              /
+          Scanner
+                    \                              /
+                         (YAML Character Stream)
+                    /                              \
+           Reader                                      Writer
+                    \                              /
+                      (YAML String or File Handle)
+</pre>
+</body>
