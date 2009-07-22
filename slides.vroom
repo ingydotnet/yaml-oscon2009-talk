@@ -17,10 +17,10 @@ OSCON - 22 July 2009 - San Jose, CA
 
 == Any Questions?
 
-+(seriously)
++== (seriously)
 
 +* Who here has used YAML?
-+* In what languages?
++* In what programming languages/environments?
 +* How have you used YAML?
 
 ---- yaml
@@ -28,11 +28,23 @@ OSCON - 22 July 2009 - San Jose, CA
 == # Ingy döt Net #
 
 ---
-- My name is Ingy döt Net
-- One of the three YAML inventors
-- A progammer: [ Perl, JavaScript, Python ]
+- Just Another Perl Hacker:
+  - Inline
+  - Jemplate
+  - pQuery 
+  - TestML
++- One of the three YAML inventors
+- A Progammer: [ Perl, JavaScript, Python ]
 - Writing an O'Reilly book about YAML
 - Acmeist
+
+----
+
+== Acmeism
+
+* A defunct poetry movement
+
+* A futurist software movement
 
 ----
 
@@ -42,34 +54,120 @@ OSCON - 22 July 2009 - San Jose, CA
 * All languages do the same thing
 * Languages divide people
 * Acmeism brings them back together
+
+----
+
+== Acmeism
+
 * YAML is Acmeist
+* JSON is Acmeist
 * XML is Acmeist
 * TestML is Acmeist
 * C'Dent is Acmeist
+
++* OSCON is Acmeist!
+
+----
+
+== YAML - The Book
+
+* Just began writing an O'Reilly book on YAML
+* Available in early 2010
+* This presentation roughly follows that outline
+
+----
+
+== YAML Ain't Markup Language
+
+Q: What is YAML? (According to the Internet)
+A: YAML is a Serialization Language
+
+From Wikipedia:
+
+    * XML  is a ... MARKUP LANGUAGE...
+    * JSON is a ... DATA INTERCHANGE FORMAT
+    * YAML is a ... DATA SERIALIZATION FORMAT
+
++   YAML is THE ONLY interlingual *Data Serialization* Language.
+
+    [ Ruby, Perl, Python, PHP, Java, Haskell, JavaScript ]
+
+----
+
+== What is YAML Used For?
+
+* Storing Objects
+* Scripting Your Brain
+* Viewing Objects
+* Interprocess Messaging
+
+----
+
+== Implementations
+
+  C/C++ Libraries:
+  - libyaml       # "C" Fast YAML 1.1
+  - Syck          # (dated) "C" YAML 1.0
+  - yaml-cpp      # C++ YAML 1.1 implementation
+  Java:
+  - JvYaml        # Java port of RbYaml
+  - SnakeYAML     # Java 5 / YAML 1.1
+  - YamlBeans     # To/from JavaBeans
+  - JYaml         # Original Java Implementation
+  Python:
+  - PyYaml        # YAML 1.1, pure python and libyaml binding
+  - PySyck        # YAML 1.0, syck binding
+  Ruby:
+  - RbYaml        # YAML 1.1 (PyYaml Port)
+  - yaml4r        # YAML 1.0, standard library syck binding
+  Perl Modules:
+  - YAML          # Pure Perl YAML Module
+  - YAML::XS      # Binding to libyaml
+  - YAML::Syck    # Binding to libsyck
+  - YAML::Tiny    # A small YAML subset module
+  - YAML::Perl    # Perl port of PyYaml
+  C#/.NET:
+  - yaml-net      # YAML 1.1 library
+  - yatools.net   # (in-progress) YAML 1.1 implementation
+  PHP:
+  - syck          # syck bindings (YAML 1.0)
+  - spyc          # yaml loader/dumper (YAML 1.?)
+  OCaml:
+  - ocaml-syck    # YAML 1.0 via syck bindings
+  Javascript:
+  - JsYaml        # port of PyYaml
+  Actionscript:
+  - as3yaml       # port of JvYAML (1.1)
+  Haskell:
+  - YamlReference # Haskell 1.2 reference parser
+  - HsYAML        # Audrey Tang's Loader/Dumper Library for Haskell
 
 ----
 
 == A Brief History of YAML
 
-Discuss YAML timeline and various language implementations
-
-----
-
-== The YAML Data Model
++* April 2001 - Clark called Ingy
++* 2002 - Ingy wrote YAML.pm
 
 ----
 
 == YAML Language Design
 
-Support a simple data model
-Be complex enough to handle any data
-Human readability
-Use cases
+* Support a simple/common data model
+  * Hashes/Arrays/Scalars
+* Be complex enough to handle any data
+  * References
+* Human readability
+* Use cases
   - Computers producing YAML
     - Serializing objects
   - Humans producing YAML
     - configs
     - programming with data
+
+----
+
+== The YAML Data Model
 
 ----
 
@@ -89,17 +187,31 @@ Use cases
 
 == YAML Syntax Overview
 
-obfuscated YAML
+* 5 Scalar Styles
+  * Quoting Rarely Needed
+  * Implicit Typing
+* Block vs Flow
+  * JSON is Flow YAML
+
+
 
 ----
 
 == Advanced YAML Syntax
 
-Collection Keys
+* Collection Keys
+* Flow Sets
+* Flow Omaps
 
 ----
 
 == YAML in the Wild
+
+* Many Formats are almost YAML
+  * Debian
+  * Cabal
+* CPAN - META.yml
+* RoR
 
 ----
 
@@ -127,17 +239,47 @@ Collection Keys
 
 ----
 
-== Using YAML in Perl
+== Using YAML in Python
 
-Mention TPF grant
+---- python
+
+import yaml
+
+object1 = {
+    'name': 'Ingy dot Net',
+    'number': 42,
+    'needs': [
+        'sex',
+        'drugs',
+        'rock and roll'
+    ]
+}
+
+yaml1 = yaml.dump(object1)
+object2 = yaml.load(yaml1)
+yaml2 = yaml.dump(object2)
+
+if yaml1 == yaml2:
+    print yaml1
+else:
+    raise Exception(yaml1 + "!=\n" + yaml2)
 
 ----
 
-== Using YAML in Python
+== Using YAML in Perl
+
+* YAML.pm - 2001
+* YAML::Syck - Binding to libsyck
+* YAML::XS - Binding to libyaml
+* YAML::Tiny - Not really YAML
+* YAML::Perl - Port of PyYaml
+  * Sponsored by The Perl Foundation
 
 ----
 
 == Using YAML in Ruby
+
+* rbyaml - Ships with Ruby since 2004
 
 ----
 
@@ -178,7 +320,11 @@ Emitter
 
 ----
 
-== 
+== Issues with YAML
+
+* Spec is Complex
+* Implementations differ somewhat
+* Version skew
 
 ----
 
