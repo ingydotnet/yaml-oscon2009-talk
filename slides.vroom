@@ -65,7 +65,9 @@ OSCON - 22 July 2009 - San Jose, CA
 * TestML is Acmeist
 * C'Dent is Acmeist
 
-+* OSCON is Acmeist!
++* OSCON should be more Acmeist!
+
+* This is an Acmeist OSCON talk.
 
 ----
 
@@ -136,23 +138,8 @@ From Wikipedia:
 +* 2005 - JSON was Invented
 +* 2006 - PyYaml
 +* 2007-2009 - PyYaml ported to *
-+* Last Night - YAML Spec Finally Completed
 
-----
-
-== YAML Language Design
-
-* Support a simple/common data model
-  * Hashes/Arrays/Scalars
-* Be complex enough to handle any data
-  * References
-* Human readability
-* Use cases
-  - Computers producing YAML
-    - Serializing objects
-  - Humans producing YAML
-    - configs
-    - programming with data
++* Last Night - YAML Spec Finally Completed!
 
 ----
 
@@ -275,7 +262,8 @@ matter
 * Flow can occur inside Top, Block or Flow
 * Block can occur only in Top or Block
 * Flow supports all same model as Block
-* JSON is a pure subset of YAML
+
+* JSON is a _pure subset_ of YAML
 
 ---- yaml,i4
 # JSON is YAML
@@ -764,7 +752,16 @@ for event in yaml.parse(stream):
 
 print dumper.stream.getvalue()
 ----
-== The End
+== (Almost) The End
 
-+http://ingydotnet.github.com/yaml-oscon2009-talk/
+
+
+== Any Questions
+
+----
+== The End!
+
+
+
+== http://ingydotnet.github.com/yaml-oscon2009-talk/
 
